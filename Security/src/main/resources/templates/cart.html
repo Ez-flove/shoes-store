@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="~{header :: head}"></head>
+<body>
+<header th:replace="~{header :: header}">
+</header>
+<div class="container" >
+    <h1 style="text-align: center; margin: 30px">Cart</h1>
+    <p th:if="${notify}" th:text="${notify}"></p>
+    <table th:if="${session.cart}" class="table">
+        <thead>
+        <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Image</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Price</th>
+            <th scope="col">TotalItem</th>
+            <th scope="col">Delete</th>
+
+        </tr>
+        </thead>
+        <tbody>
+
+        <tr th:each="cartItem, iterStat : ${session.cart.cartItems}">
+            <td th:text="${cartItem.product.name}"></td>
+            <td><img th:src="${cartItem.product.image}" alt="ảnh" style="width: 100px;height: 100px"></td>
+            <form action="/customer/updatequantity" method="post">
+                <input type="hidden" name="itemId" th:value="${cartItem.id}">
+            <td><input th:value="${cartItem.quantity}" name="quantity"><button type="submit">Update</button></td>
+            </form>
+            <td th:text="${cartItem.product.price}"></td>
+            <td th:text="${cartItem.quantity * cartItem.product.price}"></td>
+            <td ><a class="link-offset-1" th:href="@{/customer/deleteitem/{id}(id=${cartItem.id})}">Delete</a></td>
+        </tr>
+        <tr>
+
+        </tr>
+        </tbody>
+
+    </table>
+    <div class="payment" th:if="${session.cart}">
+        <h2 th:text="'TOTAL: '+ ${session.total}"  style="float: right"></h2>
+        <a th:href="@{/customer/payment}" class="btn btn-success" style="margin-left: 1000px">Thanh toán</a>
+    </div>
+
+</div>
+</body>
+</html>

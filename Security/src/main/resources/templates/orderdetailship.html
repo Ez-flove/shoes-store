@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="~{header :: head}"></head>
+<body>
+<header th:replace="~{header :: header}">
+</header>
+<div class="container" >
+    <h1  style="text-align: center; margin: 30px">Order Detail</h1>
+    <p th:text="'Họ tên:'+ ${order.reciverName}"></p>
+    <p th:text="'Số điện thoại:'+ ${order.reciverPhone}"></p>
+    <p th:text="'Địa chỉ:'+ ${order.reciverAddress}"></p>
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Image</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Price</th>
+            <th scope="col">TotalItem</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="orderItem, iterStat : ${order.orderItems}">
+            <td th:text="${orderItem.product.name}"></td>
+            <td><img th:src="${orderItem.product.image}" alt="ảnh" style="width: 100px;height: 100px"></td>
+            <td th:text="${orderItem.quantity}"></td>
+
+            <td th:text="${orderItem.price_curent}"></td>
+            <td th:text="${orderItem.quantity * orderItem.price_curent}"></td>
+        </tr>
+        <tr>
+        </tr>
+        </tbody>
+    </table>
+    <div class="money">
+        <h4 th:text="'Tạm tính: '+ ${total}"  ></h4>
+        <p th:text="'Phí ship: 30$'"  ></p>
+        <h2 th:text="'Tổng cộng: '+${total + 30}"></h2>
+    </div>
+    <p th:text="'Phương thức thanh toán: '+${order.payment}"></p>
+    <p th:text="'Thời điểm đặt hàng: ' + ${#temporals.format(order.createdAt,'dd/MM/yyyy HH:mm:ss')}"></p>
+    <form action="/shipper/status" method="post">
+        <input type="hidden" name="orderId" th:value="${order.id}">
+        <div class="mb-3">
+            <label  class="form-label">Ghi chú</label>
+            <input class="form-control" name="notes" th:value ="${order.note}" >
+        </div>
+        <label class="form-label" th:text="'Trạng thái đơn hàng: ' "></label>
+        <button th:each="status : ${orderStatusList}"
+            th:text="${status}"
+            th:class="${status == order.status ? 'btn btn-warning' : 'btn btn-dark'}"
+            name="status"
+            th:value="${status}" style="margin-right: 30px">
+    </button>
+    </form>
+    <a href="/shipper/order" class="btn btn-info">Cancel</a>
+</div>
+</body>
+</html>

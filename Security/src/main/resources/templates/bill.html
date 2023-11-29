@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="~{header :: head}"></head>
+<body>
+<header th:replace="~{header :: header}">
+</header>
+<div class="container" >
+    <h1 style="text-align: center; margin: 30px">Bill</h1>
+
+    <div class="bill">
+        <form action="/customer/payment" method="post" th:object="${order}">
+            <div class="mb-3">
+                <label class="form-label">Họ tên</label>
+                <input type="text" class="form-control" id="reName" oninput="executeAfterPaypal()" th:field="${order.reciverName}" >
+            </div>
+            <div class="mb-3">
+                <label  class="form-label">Số điện thoại</label>
+                <input type="text" class="form-control" id="rePhone" oninput="executeAfterPaypal()" name="image" th:field="${order.reciverPhone}">
+            </div>
+            <div class="mb-3">
+                <label  class="form-label">Địa chỉ </label>
+                <input type="text" class="form-control" id="reAdd" oninput="executeAfterPaypal()" name="image" th:field="${order.reciverAddress}">
+            </div>
+            <button class="btn-success">Thanh toán COD</button>
+        </form>
+
+        <div class="cart-small" style="background-color: #fafafa;">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Image</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">TotalItem</th>
+                    <th scope="col">Delete</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="cartItem, iterStat : ${session.cart.cartItems}">
+                    <td th:text="${cartItem.product.name}"></td>
+                    <td><img th:src="${cartItem.product.image}" alt="ảnh" style="width: 100px;height: 100px"></td>
+                    <form action="/customer/updatequantity" method="post">
+                        <input type="hidden" name="itemId" th:value="${cartItem.id}">
+                        <td><input th:value="${cartItem.quantity}" name="quantity"><button type="submit">Update</button></td>
+                    </form>
+                    <td th:text="${cartItem.product.price}"></td>
+                    <td th:text="${cartItem.quantity * cartItem.product.price}"></td>
+                    <td ><a class="link-offset-1" th:href="@{/customer/deleteitem/{id}(id=${cartItem.id})}">Delete</a></td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="money">
+                <h4 th:text="'Tạm tính: '+ ${session.total}"  ></h4>
+                <p th:text="'Phí ship: 30$'"  ></p>
+                <h2 th:text="'Tổng cộng: '+${session.total + 30}"></h2>
+            </div>
+
+        </div>
+        <form class="checkout-f__payment"
+              action="https://www.sandbox.paypal.com/cgi-bin/webscr"
+              method="post" >
+            <div class="u-s-m-b-10">
+                <input type="hidden" id="receiverName" >
+                <input type="hidden" id="receiverPhone" >
+                <input type="hidden" id="receiverAddress" >
+                <input type="hidden" name="business"
+                       value="sb-obgdj15244080@business.example.com"> <input
+                    type="hidden" name="cmd" value="_xclick">
+                <input type="hidden" name="amount"
+                       th:value="${session.total+30}">
+                <input type="hidden"
+                                                              name="currency_code" value="USD">
+                <input
+                    type="hidden" name="return"
+                    value="http://localhost:8080/customer/paypal">
+
+            </div>
+            <div>
+
+                <button class="btn btn-info" style="margin-top: 30px" type="submit" onclick="executeAfterPaypal()">CHECKOUT
+                    BY PAYPAL</button>
+            </div>
+
+        </form>
+    </div>
+    <script>
+        function executeAfterPaypal() {
+            const receiverName = document.getElementById('reName').value;
+            const receiverPhone = document.getElementById('rePhone').value;
+            const receiverAddress = document.getElementById('reAdd').value;
+            const returnInput = document.querySelector('input[name="return"]');
+            returnInput.value = `http://localhost:8080/customer/paypal?receiverName=${encodeURIComponent(receiverName)}&receiverPhone=${encodeURIComponent(receiverPhone)}&receiverAddress=${encodeURIComponent(receiverAddress)}`;
+            console.log(returnInput);
+        }
+    </script>
+</div>
+</body>
+</html>

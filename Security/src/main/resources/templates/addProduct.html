@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head th:replace="~{header :: head}">
+
+</head>
+<body>
+<header th:replace="~{header :: header}">
+</header>
+<main>
+    <div class="main-admin">
+        <div  th:replace="~{admin :: admin}"></div>
+
+        <div class="admin-content">
+            <h1 th:text="'Add Product'" style="text-align: center; margin: 50px"> </h1>
+            <form action="/admin/addproduct" method="post" th:object ="${product}">
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Name</label>
+                    <input type="text" class="form-control" id="exampleInputEmail1" name="name" th:field="${product.name}">
+                </div>
+                <div class="mb-3">
+                    <label  class="form-label">Image</label>
+                    <input type="text" class="form-control" name="image" th:field="${product.image}">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Category</label><br>
+                    <select class="form-select" id="category" name="category">
+                        <option  value="">Chọn thể loại</option>
+                        <option th:each ="category : ${categories}" name="category" th:value="${category.id}" th:text="${category.name}" th:field="${product.category}"></option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Size</label><br>
+                    <select class="form-select" id="" name="size">
+                        <option  value="">Chọn Size</option>
+                        <option th:each ="size : ${sizes}" name="category" th:value="${size.id}" th:text="${size.sizeEu}" th:field="${product.size}"></option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label  class="form-label">Price</label>
+                    <input type="text" class="form-control" name="price" th:field="${product.price}">
+                </div>
+                <div class="mb-3">
+                    <label  class="form-label">Description</label>
+                    <textarea class="form-control" name="description" th:field="${product.description}"></textarea>
+                </div>
+                <div th:if="${res}" th:text="${res}" class="alert alert-danger"></div>
+                <button type="submit" class="btn btn-primary">Add</button>
+                <a href="/admin/product" type="button" class="btn btn-secondary">Cancel</a>
+
+            </form>
+        </div>
+    </div>
+</main>
+</body>
+</html>

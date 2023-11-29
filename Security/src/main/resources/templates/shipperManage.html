@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head th:replace="~{header :: head}">
+
+</head>
+<body>
+<header th:replace="~{header :: header}">
+</header>
+<main>
+    <div class="main-admin">
+        <div  th:replace="~{admin :: admin}"></div>
+
+        <div class="admin-content">
+            <h1 th:text="'Shipper Manage'" style="text-align: center; margin: 50px"> </h1>
+            <a href="/admin/addshipper" class="btn btn-success">Add Shipper</a>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">FullName</th>
+                    <th scope="col">Phone</th>
+                    <th scope="col">Username</th>
+                    <th scope="col">Password</th>
+                    <th scope="col">Update</th>
+                    <th scope="col">Delete</th>
+
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="shipper, iterStat : ${shippers}">
+                    <td th:text="${shipper.fullname}"></td>
+                    <td th:text="${shipper.phone}"></td>
+                    <td th:text="${shipper.username}"></td>
+                    <td th:text="${shipper.passwordBase}"></td>
+                    <td ><a class="link-offset-1" th:href="@{/admin/editshipper/{id}(id=${shipper.id})}">Edit</a></td>
+                    <td ><a class="link-offset-1" th:href="@{/admin/deleteshipper/{id}(id=${shipper.id})}">Delete</a></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</main>
+</body>
+</html>

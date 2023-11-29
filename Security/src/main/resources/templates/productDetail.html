@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="~{header :: head}"></head>
+<body>
+<header th:replace="~{header :: header}">
+</header>
+<div class="container" >
+    <h1 style="text-align: center; margin: 30px">Product Detail</h1>
+    <div class="product-detail" style="display: flex">
+        <img th:src="${product.image}" style="width: 500px;height: 500px">
+        <div class="product-content" style="margin-left: 30px">
+            <h2 th:text="${product.name}"></h2>
+            <p th:text="'Loại: '+ ${product.category.name}" style="color: brown"></p>
+            <p th:text="'Size: '+ ${product.size.sizeEu}" style="color: brown"></p>
+            <p th:text ="'Price: '+ ${product.price}+'$'" style="font-size: 30px"></p>
+            <p th:text="${product.description}"></p>
+            <form action="/customer/cart" method="post">
+                <label>Số lượng:</label>
+                <input class="form-control mr-sm-2" type="text"
+                       name="quantity" aria-label="Search">
+                <input type="hidden" name="productId" th:value="${product.id}" />
+                <button  class="btn btn-danger">Add To Cart</button>
+
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

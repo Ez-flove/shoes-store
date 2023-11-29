@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="~{header :: head}"></head>
+<body>
+<header th:replace="~{header :: header}"> </header>
+<main>
+    <div id="formlogin">
+        <h1>Sign Up</h1>
+        <p th:text="${error}"></p>
+        <form action="/customer/size" method="post" >
+            <div class="form-group">
+                <label for="formGroupExampleInput">Độ dài chân</label>
+                <input
+                    type="text" name="length" class="form-control" id="formGroupExampleInput"
+                    placeholder="Nhập độ dài bàn chân(cm)">
+            </div>
+            <div class="form-group">
+                <label class="formGroupExampleInput">Quy chuẩn</label>
+                <select class="form-select" name="stand" id="size-standard" >
+                    <option  value="UK">Chuẩn Anh(UK)</option>
+                    <option  value="US">Chuẩn Mỹ(US)</option>
+                    <option  value="EU">Chuẩn châu Âu(EU)</option>
+                    <option  value="CM">Chuẩn châu Á(CM)</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Tính toán size giày của bạn</button>
+        </form>
+    </div>
+</main>
+</body>
+</html>

@@ -1,0 +1,74 @@
+body{
+	background-color: white;
+}
+img{
+	width: 20%;
+	height: 20%;
+}
+#formlogin{
+	width: 40%;
+	margin: 50px auto;
+	border: 1px solid black;
+	padding: 50px;
+	background-color: white;
+
+}
+h1{
+	text-align: center;
+}
+.btn-primary{
+	width: 50%;
+    margin: 30px 25%;
+}
+.manage{
+	background-color:#ffc107;
+	width: 80%;
+	margin: 30px auto;
+	text-align: center;
+	border-radius: 5px;
+	font-size: 40px;
+}
+.main-admin{
+	display: flex;
+}
+.admin-menu{
+	width: 20%;
+	height: 100%;
+	background-color: cornflowerblue;
+	min-height: 800px;
+}
+.admin-content{
+	width: 1200px;
+	margin: 0 30px;
+}
+a{
+	margin-bottom: 30px;
+}
+.container{
+	width: 80%;
+	margin: 0 auto;
+}
+.container-detail{
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	gap: 20px;
+
+}
+.detail{
+	border: solid 1px black;
+	padding: 20px;
+	position: relative;
+}
+.btn-danger{
+	position: absolute;
+	bottom: 5px;
+}
+.bill{
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	gap: 20px;
+}
+.p-price{
+	margin-bottom: 10rem;
+}
+

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head th:replace="~{header :: head}">
+
+</head>
+<body>
+<header th:replace="~{header :: header}">
+</header>
+<main>
+    <div class="main-admin">
+        <div class="admin-menu">
+            <a href="/shipper/order" class="list-group-item list-group-item-action list-group-item-secondary">Những đơn cần giao</a>
+            <a href="/shipper/success" class="list-group-item list-group-item-action list-group-item-success">Những đơn đã giao</a>
+
+
+        </div>
+        <div class="admin-content">
+            <h1 th:text="'Hi,' +${session.username1}+ '. Welcome to Shipper Page'" style="text-align: center; margin: 50px"> </h1>
+        </div>
+    </div>
+</main>
+</body>
+</html>

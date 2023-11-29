@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head th:replace="~{header :: head}">
+
+</head>
+<body>
+<header th:replace="~{header :: header}">
+</header>
+<main>
+  <div class="main-admin">
+  <div class="admin-menu" th:fragment="admin">
+    <a href="/admin/product" class="list-group-item list-group-item-action list-group-item-secondary">Quản lí sản phẩm</a>
+    <a href="/admin/shipper" class="list-group-item list-group-item-action list-group-item-success">Quản lí shipper</a>
+    <a href="/admin/order" class="list-group-item list-group-item-action list-group-item-danger">Quản lí đơn hàng</a>
+    <a href="/admin/statics" class="list-group-item list-group-item-action list-group-item-warning">Xem thống kê doanh thu theo khách hàng</a>
+    <a href="/admin/staticbytime" class="list-group-item list-group-item-action list-group-item-warning">Xem thống kê doanh thu theo thời gian</a>
+
+  </div>
+  <div class="admin-content">
+    <h1 th:text="'Hi,' +${session.username1}+ 'Welcome to Admin Page'" style="text-align: center; margin: 50px"> </h1>
+  </div>
+  </div>
+</main>
+</body>
+</html>

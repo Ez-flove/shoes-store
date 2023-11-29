@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head th:replace="~{header :: head}">
+
+</head>
+<body>
+<header th:replace="~{header :: header}">
+</header>
+<main>
+    <div class="main-admin">
+        <div th:replace="~{admin :: admin}">
+        </div>
+        <div class="admin-content">
+            <h1 th:text="'Add Shipper'" style="text-align: center; margin: 50px"> </h1>
+            <form action="/admin/addshipper" method="post" th:object="${shipper}">
+                <div class="form-group">
+                    <label for="formGroupExampleInput">Fullname</label> <input
+                        type="text" class="form-control" id="formGroupExampleInput" th:field="*{fullname}"
+                        placeholder="Enter Fullname">
+                </div>
+                <div class="form-group">
+                    <label for="formGroupExampleInput">Username</label> <input
+                        type="text" class="form-control" id="" th:field="*{username}"
+                        placeholder="Enter Username">
+                </div>
+                <div class="form-group">
+                    <label for="formGroupExampleInput">Email</label> <input
+                        type="text" class="form-control" id="formGroupExampleInput1" th:field="*{email}"
+                        placeholder="Enter Email">
+                </div>
+                <div class="form-group">
+                    <label for="formGroupExampleInput2">Password</label> <input
+                        type="password" class="form-control" id="formGroupExampleInput2"  th:field="*{passwordBase}"
+                        placeholder="Enter password">
+                </div>
+                <div class="form-group">
+                    <label for="formGroupExampleInput">Phone</label> <input
+                        type="text" class="form-control"  th:field="*{phone}"
+                        placeholder="Enter Phone">
+                </div>
+                <div class="form-group">
+                    <label for="formGroupExampleInput">Address</label> <input
+                        type="text" class="form-control" th:field="*{address}"
+                        placeholder="Enter Address">
+                </div>
+                <button type="submit" class="btn btn-primary">Add</button>
+                <a href="/admin/product" type="button" class="btn btn-secondary">Back</a>
+            </form>
+        </div>
+    </div>
+</main>
+</body>
+</html>

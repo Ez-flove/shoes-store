@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head th:replace="~{header :: head}">
+</head>
+<body>
+<header th:replace="~{header :: header}">
+</header>
+<main>
+    <div class="main-admin">
+        <div th:replace="~{admin :: admin}">
+        </div>
+        <div class="admin-content">
+            <h1 th:text="'Thống kê doanh thu theo thời gian'" style="text-align: center; margin: 50px"> </h1>
+            <form action="/admin/staticbytime" method="post" >
+                <div class="form-group">
+                    <label for="formGroupExampleInput">Start</label> <input
+                        type="date" class="form-control" id="formGroupExampleInput" name="start"
+                        >
+                </div>
+                <div class="form-group">
+                    <label for="formGroupExampleInput">Finish</label> <input
+                        type="date" class="form-control" id="" name="finish"
+                        >
+                </div>
+                <button  type="submit" class="btn btn-secondary">Thống kê</button>
+            </form>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">Day</th>
+                    <th scope="col">Total</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="tkdttNgay, iterStat : ${tkdttNgays}">
+                    <td th:text="${tkdttNgay.day}"></td>
+                    <td th:text="${tkdttNgay.doanhthu}"></td>
+                </tr>
+                </tbody>
+            </table>
+            <canvas id="myChart" width="600" height="400"></canvas>
+
+            <script>
+                const tableRows = document.querySelectorAll('.table tbody tr');
+                const label =[];
+                const datatotal = [];
+                tableRows.forEach(row => {
+                    const day = row.cells[0].textContent;
+                    const total = row.cells[1].textContent;
+                    label.push(day);
+                    datatotal.push(total);
+                });
+                console.log(label);
+                console.log(datatotal);
+                const ctx = document.getElementById('myChart').getContext('2d');
+
+                const myChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: label,
+                        datasets: [{
+                            label: 'Doanh thu',
+                            data: datatotal,
+                            backgroundColor: 'rgba(54, 162, 235, 0.5)',
+                            borderColor: 'rgba(54, 162, 235, 1)',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            </script>
+        </div>
+    </div>
+</main>
+</body>
+</html>

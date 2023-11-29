@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head th:replace="~{header :: head}">
+
+</head>
+<body>
+<header th:replace="~{header :: header}">
+</header>
+<main>
+    <div class="main-admin">
+        <div class="admin-menu">
+            <a href="/shipper/order" class="list-group-item list-group-item-action list-group-item-secondary">Những đơn cần giao</a>
+            <a href="/shipper/success" class="list-group-item list-group-item-action list-group-item-success">Những đơn đã giao</a>
+        </div>
+        <div class="admin-content">
+            <h1 th:text="'List of orders to be delivered'" style="text-align: center; margin: 50px"> </h1>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">Code</th>
+                    <th scope="col">ReciverName</th>
+                    <th scope="col">ReciverPhone</th>
+                    <th scope="col">ReciverAddress</th>
+                    <th scope="col">CreatedAt</th>
+                    <th scope="col">Detail</th>
+
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="order, iterStat : ${orders}">
+                    <td th:text="'#'+${order.id}"></td>
+                    <td th:text="${order.reciverName}"></td>
+                    <td th:text="${order.reciverPhone}"></td>
+                    <td th:text="${order.reciverAddress}"></td>
+                    <td th:text=" ${#temporals.format(order.createdAt,'dd/MM/yyyy HH:mm:ss')}"></td>
+                    <td ><a class="link-offset-1" th:href="@{/shipper/orderdetail/{id}(id=${order.id})}">Detail</a></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</main>
+</body>
+</html>

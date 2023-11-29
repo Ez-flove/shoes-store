@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="~{header :: head}"></head>
+<body>
+  	<header th:replace="~{header :: header}">
+  	</header>
+	<div class="container" >
+
+  	<h1 style="text-align: center; margin: 30px">Các sản phẩm</h1>
+		<div class="container-detail" >
+			<div class="detail" th:each="product, iterStat : ${products}">
+			<img th:src="${product.image}" alt="ảnh" style="width: 100%;height: 50%;margin-bottom: 10px">
+			<h4 th:text="${product.name}"></h4>
+			<p class="p-price" th:text="'Price: '+${product.price}+'$'"></p>
+				<a th:href="@{/customer/product/{id}(id=${product.id})}" class="btn btn-danger">Add To Cart</a>
+			</div>
+		</div>
+	</div>
+</body>
+<footer th:replace="~{footer :: footer}">
+</footer>
+</html>
